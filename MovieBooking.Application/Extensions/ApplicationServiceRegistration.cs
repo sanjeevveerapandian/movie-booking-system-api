@@ -12,6 +12,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IMovieService, MovieService>();
         services.AddScoped<IAdminService, AdminService>();
+        services.AddScoped<ITheaterService, TheaterService>();
+        services.AddScoped<IScreenService, ScreenService>();
 
         return services;
     }

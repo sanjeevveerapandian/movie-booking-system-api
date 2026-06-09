@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MovieBooking.Application.DTOs.Theater;
 
-namespace MovieBooking.Application.Interfaces
+namespace MovieBooking.Application.Interfaces;
+
+public interface ITheaterService
 {
-    internal interface ITheaterService
-    {
-    }
+    Task<TheaterResponseDto> CreateAsync(
+        long ownerId,
+        CreateTheaterDto request);
+
+    Task<List<TheaterResponseDto>> GetAllAsync();
 }

@@ -18,6 +18,8 @@ public static class PersistenceServiceRegistration
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMovieRepository, MovieRepository>();
+        services.AddScoped<ITheaterRepository, TheaterRepository>();
+        services.AddScoped<IScreenRepository, ScreenRepository>();
 
         return services;
     }

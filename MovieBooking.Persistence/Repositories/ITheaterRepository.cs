@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MovieBooking.Persistence.Models;
 
-namespace MovieBooking.Persistence.Repositories
+namespace MovieBooking.Persistence.Repositories;
+
+public interface ITheaterRepository
 {
-    internal interface ITheaterRepository
-    {
-    }
+    Task<Theater> CreateAsync(Theater theater);
+
+    Task<List<Theater>> GetAllAsync();
+
+    Task<Theater?> GetByIdAsync(long id);
 }
