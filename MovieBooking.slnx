@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="MovieBooking.API/MovieBooking.API.csproj" />
+  <Project Path="MovieBooking.Application/MovieBooking.Application.csproj" />
+  <Project Path="MovieBooking.Domain/MovieBooking.Domain.csproj" />
+  <Project Path="MovieBooking.Infrastructure/MovieBooking.Infrastructure.csproj" />
+  <Project Path="MovieBooking.Persistence/MovieBooking.Persistence.csproj" />
+  <Project Path="MovieBooking.Shared/MovieBooking.Shared.csproj" />
+</Solution>

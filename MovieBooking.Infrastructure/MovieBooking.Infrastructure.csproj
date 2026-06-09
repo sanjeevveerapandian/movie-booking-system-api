@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Email\" />
+    <Folder Include="Invoice\" />
+    <Folder Include="Storage\" />
+    <Folder Include="Reports\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.19.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MovieBooking.Application\MovieBooking.Application.csproj" />
+    <ProjectReference Include="..\MovieBooking.Persistence\MovieBooking.Persistence.csproj" />
+    <ProjectReference Include="..\MovieBooking.Shared\MovieBooking.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
