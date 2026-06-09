@@ -8,11 +8,14 @@ namespace MovieBooking.Application.Services;
 public class ScreenService : IScreenService
 {
     private readonly IScreenRepository _screenRepository;
+    private readonly ISeatRepository _seatRepository;
 
     public ScreenService(
-        IScreenRepository screenRepository)
+        IScreenRepository screenRepository,
+        ISeatRepository seatRepository)
     {
         _screenRepository = screenRepository;
+        _seatRepository = seatRepository;
     }
 
     public async Task<ScreenResponseDto> CreateAsync(
@@ -27,6 +30,32 @@ public class ScreenService : IScreenService
         };
 
         await _screenRepository.CreateAsync(screen);
+
+        // Auto Generate Seats
+
+        var seats = new List<Seat>();
+
+        char row = 'A';
+
+        int totalRows = 10;
+        int seatsPerRow = screen.Capacity / totalRows;
+
+        for (int i = 0; i < totalRows; i++)
+        {
+            for (int j = 1; j <= seatsPerRow; j++)
+            {
+                seats.Add(new Seat
+                {
+                    ScreenId = screen.Id,
+                    SeatNumber = $"{row}{j}",
+                    SeatType = "Regular"
+                });
+            }
+
+            row++;
+        }
+
+        await _seatRepository.AddRangeAsync(seats);
 
         return new ScreenResponseDto
         {
@@ -43,14 +72,15 @@ public class ScreenService : IScreenService
         var screens =
             await _screenRepository.GetAllAsync();
 
-        return screens.Select(x =>
-            new ScreenResponseDto
+        return screens
+            .Select(x => new ScreenResponseDto
             {
                 Id = x.Id,
                 TheaterId = x.TheaterId,
                 Name = x.Name,
                 Capacity = x.Capacity,
                 IsActive = x.IsActive
-            }).ToList();
+            })
+            .ToList();
     }
 }
