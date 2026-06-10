@@ -7,4 +7,6 @@ public interface IShowRepository
     Task<Show> CreateAsync(Show show);
 
     Task<List<Show>> GetAllAsync();
+
+    Task<Show?> GetByIdAsync(long id);
 }

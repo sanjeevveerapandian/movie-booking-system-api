@@ -7,4 +7,6 @@ public interface ISeatRepository
     Task AddRangeAsync(List<Seat> seats);
 
     Task<List<Seat>> GetByScreenIdAsync(long screenId);
+
+    Task<List<Seat>> GetByIdsAsync(List<long> seatIds);
 }

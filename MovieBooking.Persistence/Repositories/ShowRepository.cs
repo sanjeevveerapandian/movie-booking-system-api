@@ -31,4 +31,10 @@ public class ShowRepository : IShowRepository
             .Include(x => x.Screen)
             .ToListAsync();
     }
+
+    public async Task<Show?> GetByIdAsync(long id)
+    {
+        return await _context.Shows
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

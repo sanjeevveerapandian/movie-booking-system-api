@@ -29,4 +29,12 @@ public class SeatRepository : ISeatRepository
             .Where(x => x.ScreenId == screenId)
             .ToListAsync();
     }
+
+    public async Task<List<Seat>> GetByIdsAsync(
+    List<long> seatIds)
+    {
+        return await _context.Seats
+            .Where(x => seatIds.Contains(x.Id))
+            .ToListAsync();
+    }
 }
