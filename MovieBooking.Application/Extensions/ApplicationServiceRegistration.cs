@@ -17,6 +17,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IShowService, ShowService>();
         services.AddScoped<ISeatService, SeatService>();
         services.AddScoped<IBookingService, BookingService>();
+        services.AddScoped<IPaymentService, PaymentService>();
+        services.AddScoped<IInvoiceService, InvoiceService>();
+        services.AddScoped<ITicketService, TicketService>();
 
         return services;
     }

@@ -90,4 +90,43 @@ public class BookingService : IBookingService
             BookingStatus = booking.BookingStatus
         };
     }
+
+    public async Task<BookingDetailsDto?>
+    GetByIdAsync(long bookingId)
+    {
+        var booking =
+            await _bookingRepository
+                .GetByIdAsync(bookingId);
+
+        if (booking == null)
+            return null;
+
+        return new BookingDetailsDto
+        {
+            BookingId = booking.Id,
+
+            Movie =
+                booking.Show.Movie.Title,
+
+            Theater =
+                booking.Show.Screen
+                    .Theater.Name,
+
+            Screen =
+                booking.Show.Screen.Name,
+
+            ShowTime =
+                booking.Show.StartTime,
+
+            Amount =
+                booking.TotalAmount,
+
+            Seats =
+                booking.BookingSeats
+                    .Select(x =>
+                        x.Seat.SeatNumber)
+                    .ToList()
+        };
+    }
+
 }

@@ -7,4 +7,6 @@ public interface IBookingService
     Task<BookingResponseDto> CreateAsync(
         long userId,
         CreateBookingDto request);
+    Task<BookingDetailsDto?> GetByIdAsync(
+    long bookingId);
 }
