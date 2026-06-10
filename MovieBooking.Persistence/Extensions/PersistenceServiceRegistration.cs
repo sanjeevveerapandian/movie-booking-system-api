@@ -21,6 +21,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<ITheaterRepository, TheaterRepository>();
         services.AddScoped<IScreenRepository, ScreenRepository>();
         services.AddScoped<ISeatRepository, SeatRepository>();
+        services.AddScoped<IShowRepository, ShowRepository>();
 
         return services;
     }

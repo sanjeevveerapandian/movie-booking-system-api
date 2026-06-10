@@ -1,0 +1,10 @@
+﻿using MovieBooking.Persistence.Models;
+
+namespace MovieBooking.Persistence.Repositories;
+
+public interface IShowRepository
+{
+    Task<Show> CreateAsync(Show show);
+
+    Task<List<Show>> GetAllAsync();
+}
