@@ -129,4 +129,38 @@ public class BookingService : IBookingService
         };
     }
 
+    public async Task<List<BookingHistoryDto>>
+    GetMyBookingsAsync(
+        long userId)
+    {
+        var bookings =
+            await _bookingRepository
+                .GetByUserIdAsync(userId);
+
+        return bookings
+            .Select(x =>
+                new BookingHistoryDto
+                {
+                    BookingId = x.Id,
+
+                    Movie =
+                        x.Show.Movie.Title,
+
+                    Theater =
+                        x.Show.Screen
+                            .Theater.Name,
+
+                    ShowTime =
+                        x.Show.StartTime,
+
+                    Amount =
+                        x.TotalAmount,
+
+                    Status =
+                        x.BookingStatus
+                })
+            .ToList();
+    }
+
+
 }

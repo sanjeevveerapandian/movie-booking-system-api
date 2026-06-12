@@ -35,4 +35,9 @@ public class UserRepository : IUserRepository
             .Where(x => x.RoleId == 2)
             .ToListAsync();
     }
+
+    public async Task<int> GetTotalUsersAsync()
+    {
+        return await _context.Users.CountAsync();
+    }
 }

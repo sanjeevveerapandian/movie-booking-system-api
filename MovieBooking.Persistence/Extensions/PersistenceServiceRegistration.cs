@@ -23,6 +23,8 @@ public static class PersistenceServiceRegistration
         services.AddScoped<ISeatRepository, SeatRepository>();
         services.AddScoped<IShowRepository, ShowRepository>();
         services.AddScoped<IBookingRepository, BookingRepository>();
+        services.AddScoped<IPaymentRepository, PaymentRepository>();
+        services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 
 
         return services;

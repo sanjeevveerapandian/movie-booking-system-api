@@ -16,4 +16,20 @@ public interface IBookingRepository
 
     Task AddBookingSeatsAsync(
         List<BookingSeat> bookingSeats);
+
+    Task<Booking?> GetByIdAsync(
+        long bookingId);
+
+    Task<List<Booking>> GetByUserIdAsync(
+    long userId);
+
+    Task<int> GetTotalBookingsAsync();
+
+    Task<decimal> GetTotalRevenueAsync();
+
+    Task<int> GetCountByTheaterIdsAsync(
+    List<long> theaterIds);
+
+    Task<decimal> GetRevenueByTheaterIdsAsync(
+        List<long> theaterIds);
 }

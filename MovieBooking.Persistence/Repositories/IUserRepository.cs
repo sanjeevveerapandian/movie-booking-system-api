@@ -9,4 +9,6 @@ public interface IUserRepository
     Task<User> CreateAsync(User user);
 
     Task<List<User>> GetTheaterAdminsAsync();
+
+    Task<int> GetTotalUsersAsync();
 }

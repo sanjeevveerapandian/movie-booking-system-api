@@ -42,4 +42,14 @@ public class AdminController : ControllerBase
             Message = "Welcome Super Admin"
         });
     }
+
+    [Authorize(Roles = "SuperAdmin")]
+    [HttpGet("dashboard")]
+    public async Task<IActionResult>
+    GetDashboard()
+    {
+        return Ok(
+            await _adminService
+                .GetDashboardAsync());
+    }
 }

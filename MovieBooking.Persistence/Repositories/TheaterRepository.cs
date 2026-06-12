@@ -36,4 +36,18 @@ public class TheaterRepository : ITheaterRepository
         return await _context.Theaters
             .FirstOrDefaultAsync(x => x.Id == id);
     }
+
+    public async Task<int> GetTotalTheatersAsync()
+    {
+        return await _context.Theaters.CountAsync();
+    }
+
+    public async Task<List<Theater>>
+    GetByOwnerIdAsync(
+        long ownerId)
+    {
+        return await _context.Theaters
+            .Where(x => x.OwnerId == ownerId)
+            .ToListAsync();
+    }
 }

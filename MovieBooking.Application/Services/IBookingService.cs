@@ -9,4 +9,6 @@ public interface IBookingService
         CreateBookingDto request);
     Task<BookingDetailsDto?> GetByIdAsync(
     long bookingId);
+
+    Task<List<BookingHistoryDto>> GetMyBookingsAsync(long userId);
 }

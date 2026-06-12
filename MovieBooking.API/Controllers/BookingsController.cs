@@ -36,4 +36,34 @@ public class BookingsController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult>
+    Get(long id)
+    {
+        var result =
+            await _bookingService
+                .GetByIdAsync(id);
+
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
+    }
+
+    [Authorize(Roles = "User")]
+    [HttpGet("my-bookings")]
+    public async Task<IActionResult>
+    GetMyBookings()
+    {
+        var userId =
+            long.Parse(
+                User.FindFirstValue(
+                    ClaimTypes.NameIdentifier)!);
+
+        return Ok(
+            await _bookingService
+                .GetMyBookingsAsync(
+                    userId));
+    }
 }

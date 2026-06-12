@@ -1,17 +1,24 @@
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MovieBooking.Application.Extensions;
+using MovieBooking.Application.Interfaces;
 using MovieBooking.Infrastructure.Extensions;
 using MovieBooking.Persistence.Extensions;
+using System.Text;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+QuestPDF.Settings.License =
+    LicenseType.Community;
 
 // Dependency Injection
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
+
+builder.Services.AddHttpContextAccessor();
 
 // JWT Authentication
 builder.Services
@@ -91,6 +98,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 // Authentication
 app.UseAuthentication();

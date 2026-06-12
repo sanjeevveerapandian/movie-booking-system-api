@@ -35,6 +35,20 @@ public class ShowRepository : IShowRepository
     public async Task<Show?> GetByIdAsync(long id)
     {
         return await _context.Shows
+            .Include(x => x.Movie)
+            .Include(x => x.Screen)
+                .ThenInclude(x => x.Theater)
             .FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task<int>
+    GetCountByTheaterIdsAsync(
+        List<long> theaterIds)
+    {
+        return await _context.Shows
+            .Include(x => x.Screen)
+            .CountAsync(x =>
+                theaterIds.Contains(
+                    x.Screen.TheaterId));
     }
 }

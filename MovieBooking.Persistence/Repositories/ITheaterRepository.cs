@@ -9,4 +9,9 @@ public interface ITheaterRepository
     Task<List<Theater>> GetAllAsync();
 
     Task<Theater?> GetByIdAsync(long id);
+
+    Task<int> GetTotalTheatersAsync();
+
+    Task<List<Theater>> GetByOwnerIdAsync(
+    long ownerId);
 }

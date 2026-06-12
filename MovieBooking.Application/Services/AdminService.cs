@@ -9,11 +9,20 @@ namespace MovieBooking.Application.Services;
 public class AdminService : IAdminService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IMovieRepository _movieRepository;
+    private readonly ITheaterRepository _theaterRepository;
+    private readonly IBookingRepository _bookingRepository;
 
     public AdminService(
-        IUserRepository userRepository)
+        IUserRepository userRepository,
+        IMovieRepository movieRepository,
+        ITheaterRepository theaterRepository,
+        IBookingRepository bookingRepository)
     {
         _userRepository = userRepository;
+        _movieRepository = movieRepository;
+        _theaterRepository = theaterRepository;
+        _bookingRepository = bookingRepository;
     }
 
     public async Task CreateTheaterAdminAsync(
@@ -46,5 +55,32 @@ public class AdminService : IAdminService
 
         await _userRepository
             .CreateAsync(user);
+    }
+
+    public async Task<DashboardDto>
+        GetDashboardAsync()
+    {
+        return new DashboardDto
+        {
+            TotalUsers =
+                await _userRepository
+                    .GetTotalUsersAsync(),
+
+            TotalMovies =
+                await _movieRepository
+                    .GetTotalMoviesAsync(),
+
+            TotalTheaters =
+                await _theaterRepository
+                    .GetTotalTheatersAsync(),
+
+            TotalBookings =
+                await _bookingRepository
+                    .GetTotalBookingsAsync(),
+
+            TotalRevenue =
+                await _bookingRepository
+                    .GetTotalRevenueAsync()
+        };
     }
 }

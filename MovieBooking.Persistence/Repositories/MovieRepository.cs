@@ -46,4 +46,9 @@ public class MovieRepository : IMovieRepository
 
         await _context.SaveChangesAsync();
     }
+
+    public async Task<int> GetTotalMoviesAsync()
+    {
+        return await _context.Movies.CountAsync();
+    }
 }

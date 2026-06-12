@@ -6,4 +6,6 @@ public interface IAdminService
 {
     Task CreateTheaterAdminAsync(
         CreateTheaterAdminDto dto);
+
+    Task<DashboardDto> GetDashboardAsync();
 }

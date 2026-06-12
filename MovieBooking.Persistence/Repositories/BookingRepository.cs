@@ -56,4 +56,86 @@ public class BookingRepository : IBookingRepository
 
         await _context.SaveChangesAsync();
     }
+
+    public async Task<Booking?> GetByIdAsync(
+    long bookingId)
+    {
+        return await _context.Bookings
+
+            .Include(x => x.User)
+
+            .Include(x => x.Show)
+                .ThenInclude(x => x.Movie)
+
+            .Include(x => x.Show)
+                .ThenInclude(x => x.Screen)
+                    .ThenInclude(x => x.Theater)
+
+            .Include(x => x.BookingSeats)
+                .ThenInclude(x => x.Seat)
+
+            .FirstOrDefaultAsync(
+                x => x.Id == bookingId);
+    }
+
+    public async Task<List<Booking>>
+    GetByUserIdAsync(long userId)
+    {
+        return await _context.Bookings
+
+            .Include(x => x.Show)
+                .ThenInclude(x => x.Movie)
+
+            .Include(x => x.Show)
+                .ThenInclude(x => x.Screen)
+                    .ThenInclude(x => x.Theater)
+
+            .Where(x => x.UserId == userId)
+
+            .OrderByDescending(
+                x => x.BookingDate)
+
+            .ToListAsync();
+    }
+
+    public async Task<int> GetTotalBookingsAsync()
+    {
+        return await _context.Bookings.CountAsync();
+    }
+
+    public async Task<decimal> GetTotalRevenueAsync()
+    {
+        return await _context.Bookings
+            .SumAsync(x => x.TotalAmount);
+    }
+
+    public async Task<int>
+    GetCountByTheaterIdsAsync(
+        List<long> theaterIds)
+    {
+        return await _context.Bookings
+
+            .Include(x => x.Show)
+                .ThenInclude(x => x.Screen)
+
+            .CountAsync(x =>
+                theaterIds.Contains(
+                    x.Show.Screen.TheaterId));
+    }
+
+    public async Task<decimal>
+        GetRevenueByTheaterIdsAsync(
+            List<long> theaterIds)
+    {
+        return await _context.Bookings
+
+            .Include(x => x.Show)
+                .ThenInclude(x => x.Screen)
+
+            .Where(x =>
+                theaterIds.Contains(
+                    x.Show.Screen.TheaterId))
+
+            .SumAsync(x => x.TotalAmount);
+    }
 }

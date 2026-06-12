@@ -27,4 +27,14 @@ public class ScreenRepository : IScreenRepository
     {
         return await _context.Screens.ToListAsync();
     }
+
+    public async Task<int>
+    GetCountByTheaterIdsAsync(
+        List<long> theaterIds)
+    {
+        return await _context.Screens
+            .CountAsync(x =>
+                theaterIds.Contains(
+                    x.TheaterId));
+    }
 }

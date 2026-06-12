@@ -9,4 +9,7 @@ public interface IShowRepository
     Task<List<Show>> GetAllAsync();
 
     Task<Show?> GetByIdAsync(long id);
+
+    Task<int> GetCountByTheaterIdsAsync(
+    List<long> theaterIds);
 }
